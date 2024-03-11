@@ -1,12 +1,12 @@
 substitutions:
-  name: "athom-sw01-v2"
-  friendly_name: "Athom SW01 V2"
-  project_name: "athom.sw01-v2"
-  project_version: "1.0"
+  device_name: "athom-1gang-switch-v2"
+  project_name: "Athom Technology.1 Gang Switch V2"
+  project_version: "1.1"
   light_restore_mode: RESTORE_DEFAULT_OFF
 
 esphome:
-  name: "${name}"
+  name: "${device_name}"
+  friendly_name: ""
   name_add_mac_suffix: true
   project:
     name: "${project_name}"
@@ -16,12 +16,18 @@ esp8266:
   board: esp8285
   restore_from_flash: true
 
+preferences:
+  flash_write_interval: 1min
+
 api:
 
 ota:
 
 logger:
   baud_rate: 0
+
+mdns:
+  disabled: false
 
 web_server:
   port: 80
@@ -36,14 +42,17 @@ dashboard_import:
 
 binary_sensor:
   - platform: status
-    name: "${friendly_name} Status"
+    name: "Status"
 
   # Touch Button
   - platform: gpio
     pin:
       inverted: true
       number: GPIO3
-    name: "${friendly_name} Button"
+      mode:
+        input: true
+        pullup: true
+    name: "Button"
     disabled_by_default: true
     on_multi_click:
       - timing:
@@ -54,17 +63,24 @@ binary_sensor:
       - timing:
           - ON for at least 4s
         then:
-          - button.press: restart_button
+          - button.press: Reset
 
 sensor:
   - platform: uptime
-    name: "${friendly_name} Uptime"
-    disabled_by_default: true
+    name: "Uptime Sensor"
+
+  - platform: wifi_signal
+    name: "${friendly_name} WiFi Signal"
+    update_interval: 60s
 
 button:
-  - platform: restart
-    id: restart_button
-    name: "${friendly_name} Restart"
+  - platform: factory_reset
+    name: "Reset"
+    id: Reset
+
+  - platform: safe_mode
+    name: "Safe Mode"
+    internal: false
 
 output:
   # Relay
@@ -80,7 +96,7 @@ output:
 
 light:
   - platform: status_led
-    name: "${friendly_name} Status LED"
+    name: "Status LED"
     disabled_by_default: true
     pin:
       number: GPIO0
@@ -88,7 +104,7 @@ light:
 
   # Relay
   - platform: binary
-    name: "${friendly_name} Light"
+    name: "Light"
     id: light1
     output: relay1
     restore_mode: ${light_restore_mode}
@@ -99,7 +115,7 @@ light:
 
   # Button LED
   - platform: monochromatic
-    name: "${friendly_name} LED"
+    name: "LED"
     disabled_by_default: true
     id: led1
     output: button_led1
@@ -108,5 +124,12 @@ light:
 text_sensor:
   - platform: wifi_info
     ip_address:
-      name: "${friendly_name} IP Address"
-      disabled_by_default: true
+      name: "IP Address"
+    ssid:
+      name: "Connected SSID"
+    mac_address:
+      name: "Mac Address"
+
+time:
+  - platform: sntp
+    id: sntp_time

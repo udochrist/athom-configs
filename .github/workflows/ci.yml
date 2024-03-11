@@ -14,6 +14,7 @@ jobs:
           - rgb-light
           - rgbww-light
           - rgbct-light
+          - rgbw-light
           - garage-door
           - ws2812b
           - mini-switch
@@ -23,6 +24,7 @@ jobs:
           - relay-board-x8
           - smart-plug
           - smart-plug-v2
+          - wall-outlet
           - sw01
           - sw01-v2
           - sw02
@@ -32,9 +34,10 @@ jobs:
           - cb02
           - ls-4p-3wire
           - ls-4p-4wire
+          - presence-sensor
     steps:
       - name: Checkout source
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.2.0
       - uses: esphome/build-action@v1.1.0
         id: esphome-build
         with:

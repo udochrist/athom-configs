@@ -1,12 +1,12 @@
 substitutions:
-  name: "athom-rgb-light"
-  friendly_name: "Athom RGB Light Strip"
-  project_name: "athom.rgb-light"
-  project_version: "1.0"
-  light_restore_mode: RESTORE_DEFAULT_ON
+  device_name: "athom-rgb-light"
+  project_name: "Athom Technology.RGB Light Strip Controller"
+  project_version: "1.1"
+  light_restore_mode: RESTORE_DEFAULT_OFF
 
 esphome:
-  name: "${name}"
+  name: "${device_name}"
+  friendly_name: ""
   name_add_mac_suffix: true
   project:
     name: "${project_name}"
@@ -16,11 +16,18 @@ esp8266:
   board: esp8285
   restore_from_flash: true
 
+preferences:
+  flash_write_interval: 1min
+
 api:
 
 ota:
 
 logger:
+  baud_rate: 0
+
+mdns:
+  disabled: false
 
 web_server:
   port: 80
@@ -35,16 +42,43 @@ dashboard_import:
 
 binary_sensor:
   - platform: status
-    name: "${friendly_name} Status"
+    name: "Status"
+
+  - platform: gpio
+    pin:
+      number: 0
+      mode: INPUT_PULLUP
+      inverted: true
+    name: "Power Button"
+    disabled_by_default: true
+    on_multi_click:
+      - timing:
+          - ON for at most 1s
+          - OFF for at least 0.2s
+        then:
+          - light.toggle: led
+      - timing:
+          - ON for at least 4s
+        then:
+          - button.press: Reset
 
 sensor:
   - platform: uptime
-    name: "${friendly_name} Uptime"
+    name: "Uptime"
+
+  - platform: wifi_signal
+    name: "${friendly_name} WiFi Signal"
+    update_interval: 60s
 
 button:
-  - platform: restart
-    id: restart_button
-    name: "${friendly_name} Restart"
+  - platform: factory_reset
+    name: "Reset"
+    id: Reset
+
+  - platform: safe_mode
+    name: "Safe Mode"
+    internal: false
+
 
 output:
   - platform: esp8266_pwm
@@ -59,14 +93,22 @@ output:
 
 light:
   - platform: rgb
-    name: "${friendly_name}"
+    name: "RGB Light Strip"
     restore_mode: ${light_restore_mode}
     red: red_output
     green: green_output
     blue: blue_output
+    id: led
 
 text_sensor:
   - platform: wifi_info
     ip_address:
-      name: "${friendly_name} IP Address"
-      disabled_by_default: true
+      name: "IP Address"
+    ssid:
+      name: "Connected SSID"
+    mac_address:
+      name: "Mac Address"
+     
+time:
+  - platform: sntp
+    id: sntp_time
