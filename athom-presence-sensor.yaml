@@ -4,12 +4,13 @@ substitutions:
   room: ""
   device_description: "mmwave radar human presence sensor"
   project_name: "Athom Technology.Presence Sensor"
-  project_version: "1.0"
+  project_version: "1.0.1"
 
 esphome:
   name: "${name}"
   friendly_name: "${friendly_name}"
   name_add_mac_suffix: true
+  min_version: 2024.6.0
   project:
     name: "${project_name}"
     version: "${project_version}"
@@ -27,6 +28,7 @@ logger:
 api:
 
 ota:
+  - platform: esphome
 
 mdns:
   disabled: false
@@ -66,7 +68,6 @@ uart:
   #     delimiter: "\n"
   #   sequence:
   #     - lambda: UARTDebug::log_string(direction, bytes);
-
 
 binary_sensor:
   - platform: status
@@ -116,7 +117,6 @@ binary_sensor:
       then:
         - light.turn_off: led
 
-
   - platform: template
     name: "Occupancy"
     id: occupancy
@@ -158,8 +158,6 @@ switch:
     turn_off_action:
       - uart.write: "sensorStop\r\n"
 
-
-
 number:
   - platform: template
     name: Farthest Detection          #Value range: 1.9 ~ 12m  Default: 6
@@ -183,7 +181,6 @@ number:
       - uart.write: "saveConfig\r\n"
       - delay: 500ms
       - switch.turn_on: mmwave_sensor
-
 
   - platform: template
     name: Maintain Sensitivity                 #Value range: 0 ~ 9   Default Maintain sensitivity: 7    Default Trigger sensitivity: 5
@@ -230,7 +227,6 @@ number:
       - delay: 500ms
       - switch.turn_on: mmwave_sensor
 
-
   - platform: template
     name: Detection Delay      #Confirmation delay      Value range: 0 ～ 100  default 0.050 seconds.
     id: Detection_Delay
@@ -276,7 +272,6 @@ number:
       - uart.write: "saveConfig\r\n"
       - delay: 500ms
       - switch.turn_on: mmwave_sensor
-
 
   - platform: template
     name: Blockade Time                  #Configure block time        Value range: 1 ～ 255, default 1 seconds.
@@ -352,4 +347,3 @@ text_sensor:
 time:
   - platform: sntp
     id: my_time
-
