@@ -5,7 +5,7 @@ substitutions:
   room: ""
   device_description: "athom smart plug v2"
   project_name: "Athom Technology.Smart Plug V2"
-  project_version: "2.0.2"
+  project_version: "2.0.3"
   relay_restore_mode: RESTORE_DEFAULT_OFF
   sensor_update_interval: 10s
   # Current Limit in Amps. AU Plug = 10. IL, BR, EU, UK, US Plug = 16.
@@ -17,13 +17,12 @@ substitutions:
   # Enables faster network connections, with last connected SSID being connected to and no full scan for SSID being undertaken
   wifi_fast_connect: "false" 
   
-
 esphome:
   name: "${name}"
   friendly_name: "${friendly_name}"
   area: "${room}"
   name_add_mac_suffix: true
-  min_version: 2024.2.1
+  min_version: 2024.6.0
   project:
     name: "${project_name}"
     version: "${project_version}"
@@ -35,10 +34,10 @@ esp8266:
 preferences:
   flash_write_interval: 5min
 
-
 api:
 
 ota:
+  - platform: esphome
 
 logger:
   baud_rate: 0
