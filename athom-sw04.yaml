@@ -1,7 +1,7 @@
 substitutions:
   device_name: "athom-4gang-switch"
   project_name: "Athom Technology.4 Gang Switch"
-  project_version: "1.1"
+  project_version: "1.1.1"
   light1_restore_mode: RESTORE_DEFAULT_OFF
   light2_restore_mode: RESTORE_DEFAULT_OFF
   light3_restore_mode: RESTORE_DEFAULT_OFF
@@ -11,6 +11,7 @@ esphome:
   name: "${device_name}"
   friendly_name: ""
   name_add_mac_suffix: true
+  min_version: 2024.6.0
   project:
     name: "${project_name}"
     version: "${project_version}"
@@ -25,6 +26,7 @@ preferences:
 api:
 
 ota:
+  - platform: esphome
 
 logger:
   baud_rate: 0
