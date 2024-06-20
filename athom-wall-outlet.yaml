@@ -2,7 +2,7 @@ substitutions:
   device_name: "athom-wall-outlet"
   # friendly_name: "Athom Wall Outlet"
   project_name: "Athom Technology.Wall Outlet"
-  project_version: "1.1"
+  project_version: "1.1.1"
   relay_restore_mode: RESTORE_DEFAULT_OFF
   sensor_update_interval: 10s
 
@@ -10,6 +10,7 @@ esphome:
   name: "${device_name}"
   friendly_name: ""
   name_add_mac_suffix: true
+  min_version: 2024.6.0
   project:
     name: "${project_name}"
     version: "${project_version}"
@@ -24,6 +25,7 @@ preferences:
 api:
 
 ota:
+  - platform: esphome
 
 logger:
   baud_rate: 0
@@ -135,7 +137,6 @@ sensor:
     accuracy_decimals: 3
     filters:
       - multiply: 0.001
-
 
 button:
   - platform: factory_reset
