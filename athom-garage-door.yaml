@@ -1,13 +1,13 @@
 substitutions:
   device_name: "athom-garage-door"
   project_name: "Athom Technology.Garage Door Opener"
-  project_version: "1.2"
-
+  project_version: "1.2.1"
 
 esphome:
   name: "${device_name}"
   friendly_name: ""
   name_add_mac_suffix: true
+  min_version: 2024.6.0
   project:
     name: "${project_name}"
     version: "${project_version}"
@@ -18,9 +18,9 @@ esp8266:
 api:
 
 ota:
+  - platform: esphome
 
 logger:
-
 
 mdns:
   disabled: false
