@@ -1,7 +1,7 @@
 substitutions:
   device_name: "athom-ws2812b"
   project_name: "Athom Technology.WS2812B Controller"
-  project_version: "1.1"
+  project_version: "1.1.1"
   button_toggle: "true"
   led_restore_mode: RESTORE_DEFAULT_OFF
   number_of_leds: '150'
@@ -12,6 +12,7 @@ esphome:
   name: "${device_name}"
   friendly_name: ""
   name_add_mac_suffix: true
+  min_version: 2024.6.0
   project:
     name: "${project_name}"
     version: "${project_version}"
@@ -28,6 +29,7 @@ preferences:
 api:
 
 ota:
+  - platform: esphome
 
 logger:
   baud_rate: 0
@@ -37,7 +39,6 @@ mdns:
 
 web_server:
   port: 80
-
 
 wifi:
   ap: {} # This spawns an AP with the device name and mac address with no password.
@@ -111,4 +112,3 @@ text_sensor:
 time:
   - platform: sntp
     id: sntp_time
-
