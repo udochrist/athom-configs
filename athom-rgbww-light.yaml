@@ -1,7 +1,7 @@
 substitutions:
   device_name: "athom-rgbww-light"
   project_name: "Athom Technology.RGBCW Bulb"
-  project_version: "1.1"
+  project_version: "1.1.1"
   light_restore_mode: RESTORE_DEFAULT_ON
   color_interlock: 'true'
 
@@ -15,6 +15,7 @@ esphome:
   name: "${device_name}"
   friendly_name: ""
   name_add_mac_suffix: true
+  min_version: 2024.6.0
   project:
     name: "${project_name}"
     version: "${project_version}"
@@ -32,6 +33,7 @@ preferences:
 api:
 
 ota:
+  - platform: esphome
 
 logger:
 
@@ -96,7 +98,6 @@ output:
     pin: GPIO5
     min_power: 0.000499
     max_power: 1
-
 
 light:
   - platform: rgbww
