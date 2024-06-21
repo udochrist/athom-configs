@@ -22,9 +22,9 @@ preferences:
   flash_write_interval: 1min
 
 api:
-  - platform: esphome
 
 ota:
+  - platform: esphome
 
 logger:
 
@@ -48,7 +48,7 @@ sensor:
     name: "Uptime Sensor"
 
   - platform: wifi_signal
-    name: "${friendly_name} WiFi Signal"
+    name: "WiFi Signal"
     update_interval: 60s
 
 button:
