@@ -1,13 +1,14 @@
 substitutions:
   device_name: "athom-rgbw-light"
   project_name: "Athom Technology.RGBW Light Strip Controller"
-  project_version: "1.1"
+  project_version: "1.1.1"
   light_restore_mode: RESTORE_DEFAULT_OFF
 
 esphome:
   name: "${device_name}"
   friendly_name: ""
   name_add_mac_suffix: true
+  min_version: 2024.6.0
   project:
     name: "${project_name}"
     version: "${project_version}"
@@ -19,6 +20,7 @@ esp8266:
 api:
 
 ota:
+  - platform: esphome
 
 logger:
 
@@ -101,7 +103,6 @@ light:
     blue: output_blue
     white: output_white
     color_interlock: true
-
 
 text_sensor:
   - platform: wifi_info

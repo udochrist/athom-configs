@@ -1,7 +1,7 @@
 substitutions:
   device_name: "athom-ls-4p-4wire"
   project_name: "Athom Technology.LS 4P 4Wire"
-  project_version: "1.1"
+  project_version: "1.1.1"
   button_toggle: "true"
   light_restore_mode: RESTORE_DEFAULT_OFF
   number_of_leds: '150'
@@ -12,6 +12,7 @@ esphome:
   name: "${device_name}"
   friendly_name: ""
   name_add_mac_suffix: true
+  min_version: 2024.6.0
   project:
     name: "${project_name}"
     version: "${project_version}"
@@ -25,6 +26,7 @@ esp8266:
 api:
 
 ota:
+  - platform: esphome
 
 logger:
   baud_rate: 0
@@ -70,7 +72,7 @@ sensor:
     name: "Uptime Sensor"
 
   - platform: wifi_signal
-    name: "${friendly_name} WiFi Signal"
+    name: "WiFi Signal"
     update_interval: 60s
 
 button:

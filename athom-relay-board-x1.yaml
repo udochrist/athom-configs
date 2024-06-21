@@ -1,13 +1,14 @@
 substitutions:
   device_name: "athom-relay-board-x1"
   project_name: "Athom Technology.Relay-Board-X1"
-  project_version: "1.0"
+  project_version: "1.0.1"
   relay_restore_mode: RESTORE_DEFAULT_OFF
 
 esphome:
   name: "${device_name}"
   friendly_name: ""
   name_add_mac_suffix: true
+  min_version: 2024.6.0
   project:
     name: "${project_name}"
     version: "${project_version}"
@@ -22,6 +23,7 @@ preferences:
 api:
 
 ota:
+  - platform: esphome
 
 logger:
 

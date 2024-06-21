@@ -1,7 +1,7 @@
 substitutions:
   device_name: "athom-relay-board-x2"
   project_name: "Athom Technology.Relay-Board-X2"
-  project_version: "1.0"
+  project_version: "1.0.1"
   relay1_restore_mode: RESTORE_DEFAULT_OFF
   relay2_restore_mode: RESTORE_DEFAULT_OFF
 
@@ -9,6 +9,7 @@ esphome:
   name: "${device_name}"
   friendly_name: ""
   name_add_mac_suffix: true
+  min_version: 2024.6.0
   project:
     name: "${project_name}"
     version: "${project_version}"
@@ -23,6 +24,7 @@ preferences:
 api:
 
 ota:
+  - platform: esphome
 
 logger:
 
@@ -46,7 +48,7 @@ sensor:
     name: "Uptime Sensor"
 
   - platform: wifi_signal
-    name: "${friendly_name} WiFi Signal"
+    name: "WiFi Signal"
     update_interval: 60s
 
 button:

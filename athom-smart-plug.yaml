@@ -4,7 +4,7 @@ substitutions:
   room: ""
   device_description: "athom smart plug"
   project_name: "Athom Technology.Smart Plug"
-  project_version: "1.0"
+  project_version: "1.0.1"
   relay_restore_mode: RESTORE_DEFAULT_OFF
   sensor_update_interval: 10s
 
@@ -12,6 +12,7 @@ esphome:
   name: "${name}"
   friendly_name: "${friendly_name}"
   name_add_mac_suffix: true
+  min_version: 2024.6.0
   project:
     name: "${project_name}"
     version: "${project_version}"
@@ -26,6 +27,7 @@ preferences:
 api:
 
 ota:
+  - platform: esphome
 
 logger:
 
@@ -138,7 +140,6 @@ sensor:
     filters:
       - multiply: 0.001
 
-
 button:
   - platform: factory_reset
     name: "Reset"
@@ -232,4 +233,3 @@ time:
               - text_sensor.template.publish:
                   id: device_last_restart
                   state: !lambda 'return id(sntp_time).now().strftime("%a %d %b %Y - %I:%M:%S %p");'
-
