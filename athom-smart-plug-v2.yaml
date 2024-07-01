@@ -211,7 +211,7 @@ sensor:
 
      # Dentra Components - Define the id of the sensor providing 'Total Energy' used
   - platform: "energy_statistics"
-    total: energy_total_sensor
+    total: total_energy_sensor
 
      # Dentra Components - Adds Energy Yesterday
     energy_yesterday:
