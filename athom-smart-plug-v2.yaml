@@ -199,7 +199,7 @@ sensor:
       return id(total_energy);
     update_interval: ${sensor_update_interval}
 
-  - platform: total_energy_today
+  - platform: total_daily_energy
     name: "Total Energy Today"
     restore: true
     power_id: power_sensor
