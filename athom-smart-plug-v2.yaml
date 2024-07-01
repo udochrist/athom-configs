@@ -5,7 +5,7 @@ substitutions:
   room: ""
   device_description: "athom smart plug v2"
   project_name: "Athom Technology.Smart Plug V2"
-  project_version: "2.0.3"
+  project_version: "2.0.4"
   relay_restore_mode: RESTORE_DEFAULT_OFF
   sensor_update_interval: 10s
   # Current Limit in Amps. AU Plug = 10. IL, BR, EU, UK, US Plug = 16.
@@ -14,12 +14,25 @@ substitutions:
   dns_domain: ""
   # Set timezone of the smart plug. Useful if the plug is in a location different to the HA server. Can be entered in unix Country/Area format (i.e. "Australia/Sydney")
   timezone: ""
+  # Set the duration between the sntp service polling ntp.org servers for an update
+  sntp_update_interval: 6h
+  # Network time servers for your region, enter from lowest to highest priority. To use local servers update as per zones or countries at: https://www.ntppool.org/zone/@
+  sntp_server_1: "0.pool.ntp.org"
+  sntp_server_2: "1.pool.ntp.org"
+  sntp_server_3: "2.pool.ntp.org"  
   # Enables faster network connections, with last connected SSID being connected to and no full scan for SSID being undertaken
-  wifi_fast_connect: "false" 
-  
+  wifi_fast_connect: "false"
+  # Define logging level: NONE, ERROR, WARN, INFO, DEBUG (Default), VERBOSE, VERY_VERBOSE
+  log_level: "INFO"
+  # Hide the ENERGY sensor that shows kWh consumed, but with no time period associated with it. Resets when device restarted and reflashed.
+  hide_energy_sensor: true
+
+
+
 esphome:
   name: "${name}"
   friendly_name: "${friendly_name}"
+  comment: "${device_description}"
   area: "${room}"
   name_add_mac_suffix: true
   min_version: 2024.6.0
@@ -40,6 +53,7 @@ ota:
   - platform: esphome
 
 logger:
+  level: ${log_level}
   baud_rate: 0
 
 mdns:
@@ -49,14 +63,22 @@ web_server:
   port: 80
 
 wifi:
-  ap: {} # This spawns an AP with the device name and mac address with no password.
+  # This spawns an AP with the device name and mac address with no password.
+  ap: {}
+  # Allow rapid re-connection to previously connect WiFi SSID, skipping scan of all SSID
   fast_connect: "${wifi_fast_connect}"
+  # Define dns domain / suffix to add to hostname
   domain: "${dns_domain}"
 
 captive_portal:
 
 dashboard_import:
   package_import_url: github://athom-tech/athom-configs/athom-smart-plug-v2.yaml
+
+# Dentra Components - Adds 'Platform - Energy Statistics'
+# https://github.com/dentra/esphome-components/tree/master/components/energy_statistics
+external_components:
+  - source: github://dentra/esphome-components
 
 uart:
   rx_pin: RX
@@ -153,11 +175,13 @@ sensor:
               id(total_energy) += current_energy_value - previous_energy_value;
               previous_energy_value = current_energy_value;
               id(total_energy_sensor).update();
+      internal: ${hide_energy_sensor}
 
     apparent_power:
       name: "Apparent Power"
       filters:
         - throttle_average: ${sensor_update_interval}
+        
     power_factor:
       name: "Power Factor"
       filters:
@@ -173,16 +197,39 @@ sensor:
     accuracy_decimals: 3
     lambda: |-
       return id(total_energy);
-    update_interval: never
+    update_interval: ${sensor_update_interval}
 
-  - platform: total_daily_energy
-    name: "Total Daily Energy"
+  - platform: total_energy_today
+    name: "Total Energy Today"
     restore: true
     power_id: power_sensor
     unit_of_measurement: kWh
+    icon: mdi:hours-24
     accuracy_decimals: 3
     filters:
       - multiply: 0.001
+
+     # Dentra Components - Define the id of the sensor providing 'Total Energy' used
+  - platform: "energy_statistics"
+    total: energy_total_sensor
+
+     # Dentra Components - Adds Energy Yesterday
+    energy_yesterday:
+      name: "Total Energy Yesterday"
+      id: total_energy_yesterday
+      accuracy_decimals: 3
+
+     # Dentra Components - Adds Energy Week
+    energy_week:
+      name: "Total Energy Week"
+      id: total_energy_week
+      accuracy_decimals: 3
+
+     # Dentra Components - Adds Energy Month
+    energy_month:
+      name: "Total Energy Month"
+      id: total_energy_month
+      accuracy_decimals: 3
 
 button:
   - platform: restart
@@ -265,8 +312,13 @@ time:
     id: sntp_time
   # Define the timezone of the device
     timezone: "${timezone}"
-  # Change sync interval from default 5min to 6 hours
-    update_interval: 360min    
+  # Change sync interval from default 5min to 6 hours (or as set in substitutions)
+    update_interval: ${sntp_update_interval}
+  # Set specific sntp servers to use
+    servers: 
+      - "${sntp_server_1}"
+      - "${sntp_server_2}"
+      - "${sntp_server_3}"    
   # Publish the time the device was last restarted
     on_time_sync:
       then:
