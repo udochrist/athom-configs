@@ -4,7 +4,7 @@ substitutions:
   room: ""
   device_description: "athom smart plug"
   project_name: "Athom Technology.Smart Plug"
-  project_version: "1.0.1"
+  project_version: "1.0.2"
   relay_restore_mode: RESTORE_DEFAULT_OFF
   sensor_update_interval: 10s
 
@@ -72,21 +72,22 @@ sensor:
     entity_category: diagnostic
     internal: True
 
+  # Reports the WiFi signal strength/RSSI in dB
   - platform: wifi_signal
-    name: "WiFi Signal"
+    name: "WiFi Signal dB"
     id: wifi_signal_db
     update_interval: 60s
     entity_category: diagnostic
-    internal: true
 
   # Reports the WiFi signal strength in %
   - platform: copy
     source_id: wifi_signal_db
-    name: "WiFi Strength"
+    name: "WiFi Signal Percent"
     filters:
       - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
     unit_of_measurement: "%"
     entity_category: diagnostic
+    device_class: ""
 
   - platform: hlw8012
     sel_pin:
