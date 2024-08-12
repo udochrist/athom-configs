@@ -99,8 +99,11 @@ binary_sensor:
       - delayed_off: 10s
     device_class: motion
     on_press:
-      then:
-        - light.turn_on: led
+      if:
+        condition:
+          switch.is_on: presence_light
+        then:
+          - light.turn_on: led
 
   - platform: gpio
     pin:
@@ -157,6 +160,21 @@ switch:
       - uart.write: "sensorStart\r\n"
     turn_off_action:
       - uart.write: "sensorStop\r\n"
+
+  - platform: template
+    name: Presence Light
+    id: presence_light
+    entity_category: config
+    optimistic: true
+    restore_mode: RESTORE_DEFAULT_ON
+    on_turn_on:
+      if:
+        condition:
+          binary_sensor.is_on: occupancy
+        then:
+          - light.turn_on: led
+    on_turn_off:
+      - light.turn_off: led
 
 number:
   - platform: template
