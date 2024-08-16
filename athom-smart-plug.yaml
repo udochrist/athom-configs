@@ -76,8 +76,8 @@ dashboard_import:
 
 # Dentra Components - Adds 'Platform - Energy Statistics'
 # https://github.com/dentra/esphome-components/tree/master/components/energy_statistics
-external_components:
-  - source: github://dentra/esphome-components
+# external_components:
+#   - source: github://dentra/esphome-components
 
 globals:
   - id: total_energy
@@ -211,7 +211,7 @@ sensor:
               id(total_energy) += current_energy_value - previous_energy_value;
               previous_energy_value = current_energy_value;
               id(total_energy_sensor).update();
-      internal: true
+      # internal: ${hide_energy_sensor}
 
     # Shows the TOTAL/Lifetime Energy kWh used by the device, may reset to zero upon firmware updates
   - platform: template
@@ -226,44 +226,44 @@ sensor:
       return id(total_energy);
     update_interval: ${sensor_update_interval}
 
-#  - platform: total_daily_energy
-#    name: "Total Energy Since Boot"
-#    power_id: socket_my_power
-#    unit_of_measurement: kWh
-#    accuracy_decimals: 3
-#    restore: true
-#    filters:
-#      - multiply: 0.001
-#    internal: true
+ - platform: total_daily_energy
+   name: "Total Energy Since Boot"
+   power_id: socket_my_power
+   unit_of_measurement: kWh
+   accuracy_decimals: 3
+   restore: true
+   filters:
+     - multiply: 0.001
+   internal: true
 
      # Dentra Components - Define the id of the sensor providing 'Total Energy' used
-  - platform: "energy_statistics"
-    total: total_energy_sensor
+  # - platform: "energy_statistics"
+  #   total: total_energy_sensor
 
-     # Dentra Components - Adds Energy Today. Persistents if restarted, unlike 'total_daily_energy'
-    energy_today:
-      name: "Total Energy Today"
-      id: total_energy_today
-      accuracy_decimals: 3
-      icon: mdi:hours-24
+  #    # Dentra Components - Adds Energy Today. Persistents if restarted, unlike 'total_daily_energy'
+  #   energy_today:
+  #     name: "Total Energy Today"
+  #     id: total_energy_today
+  #     accuracy_decimals: 3
+  #     icon: mdi:hours-24
 
-     # Dentra Components - Adds Energy Yesterday
-    energy_yesterday:
-      name: "Total Energy Yesterday"
-      id: total_energy_yesterday
-      accuracy_decimals: 3
+  #    # Dentra Components - Adds Energy Yesterday
+  #   energy_yesterday:
+  #     name: "Total Energy Yesterday"
+  #     id: total_energy_yesterday
+  #     accuracy_decimals: 3
 
-     # Dentra Components - Adds Energy Week
-    energy_week:
-      name: "Total Energy Week"
-      id: total_energy_week
-      accuracy_decimals: 3
+  #    # Dentra Components - Adds Energy Week
+  #   energy_week:
+  #     name: "Total Energy Week"
+  #     id: total_energy_week
+  #     accuracy_decimals: 3
 
-     # Dentra Components - Adds Energy Month
-    energy_month:
-      name: "Total Energy Month"
-      id: total_energy_month
-      accuracy_decimals: 3
+  #    # Dentra Components - Adds Energy Month
+  #   energy_month:
+  #     name: "Total Energy Month"
+  #     id: total_energy_month
+  #     accuracy_decimals: 3
 
 button:
   - platform: restart
