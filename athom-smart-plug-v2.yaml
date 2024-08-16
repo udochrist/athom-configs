@@ -200,15 +200,15 @@ sensor:
       return id(total_energy);
     update_interval: ${sensor_update_interval}
 
- - platform: total_daily_energy
-   name: "Total Energy Since Boot"
-   restore: true
-   power_id: power_sensor
-   unit_of_measurement: kWh
-   icon: mdi:hours-24
-   accuracy_decimals: 3
-   filters:
-     - multiply: 0.001
+   - platform: total_daily_energy
+     name: "Total Energy Since Boot"
+     restore: true
+     power_id: power_sensor
+     unit_of_measurement: kWh
+     icon: mdi:hours-24
+     accuracy_decimals: 3
+     filters:
+       - multiply: 0.001
 
   #    # Dentra Components - Define the id of the sensor providing 'Total Energy' used
   # - platform: "energy_statistics"
