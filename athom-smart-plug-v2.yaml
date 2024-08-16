@@ -6,8 +6,8 @@ substitutions:
   device_description: "athom smart plug v2"
   project_name: "Athom Technology.Smart Plug V2"
   project_version: "2.0.4"
-  relay_restore_mode: "RESTORE_DEFAULT_OFF"
   sensor_update_interval: "10s"
+  relay_restore_mode: RESTORE_DEFAULT_OFF
   # Current Limit in Amps. AU Plug = 10. IL, BR, EU, UK, US Plug = 16.
   current_limit : "16"
   # Define a domain for this device to use. i.e. iot.home.lan (so device will appear as athom-smart-plug-v2.iot.home.lan in DNS/DHCP logs)
@@ -120,21 +120,22 @@ sensor:
     entity_category: diagnostic
     internal: true
 
+  # Reports the WiFi signal strength/RSSI in dB
   - platform: wifi_signal
-    name: "WiFi Signal"
+    name: "WiFi Signal dB"
     id: wifi_signal_db
     update_interval: 60s
     entity_category: diagnostic
-    internal: true
 
   # Reports the WiFi signal strength in %
   - platform: copy
     source_id: wifi_signal_db
-    name: "WiFi Strength"
+    name: "WiFi Signal Percent"
     filters:
       - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
     unit_of_measurement: "%"
     entity_category: diagnostic
+    device_class: ""
 
   - platform: cse7766
     current:
