@@ -40,7 +40,7 @@ globals:
   - id: restore_mode
     type: int
     restore_value: yes
-    initial_value: "3"
+    initial_value: "1"
 
 select:
   - platform: template
@@ -67,7 +67,6 @@ esphome:
     name: "${project_name}"
     version: "${project_version}"
   on_boot:
-    - priority: 600
       then:
         - script.execute: fast_boot_script
         - select.set_index:
