@@ -114,6 +114,24 @@ globals:
     type: float
     restore_value: yes
     initial_value: '0.0'
+  - id: restore_mode
+    type: int
+    restore_value: yes
+    initial_value: "3"
+
+select:
+  - platform: template
+    name: "Power On State"
+    id: "power_mode"
+    optimistic: true
+    options:
+      - Always Off
+      - Always On
+      - Restore Power Off State
+    on_value:
+      then:
+        - lambda: |-
+            id(restore_mode)=i+1;
 
   - id: restore_mode
     type: int
