@@ -11,7 +11,7 @@ substitutions:
   project_name: "Athom Technology.2Gang Switch V2"
   # Projection version denotes the release version of the yaml file, allowing checking of deployed vs latest version
   project_version: "v1.1.2"
-   # Restore the relay (GPO switch) upon reboot to state:
+  # Restore the relay (GPO switch) upon reboot to state:
   light1_restore_mode: RESTORE_DEFAULT_OFF
   light2_restore_mode: RESTORE_DEFAULT_OFF
   # Define a domain for this device to use. i.e. iot.home.lan (so device will appear as athom-smart-plug-v2.iot.home.lan in DNS/DHCP logs)
@@ -138,6 +138,7 @@ binary_sensor:
         input: true
         pullup: true
     name: "Button1"
+    id: button1
     disabled_by_default: true
     on_multi_click:
       - timing:
@@ -158,6 +159,7 @@ binary_sensor:
         input: true
         pullup: true
     name: "Button2"
+    id: button2
     disabled_by_default: true
     on_click:
       max_length: 0.5s
@@ -218,11 +220,11 @@ output:
   - platform: esp8266_pwm
     pin: GPIO16
     inverted: true
-    id: led1
+    id: button_led1
   - platform: esp8266_pwm
     pin: GPIO1
     inverted: true
-    id: led2
+    id: button_led2
 
 light:
   - platform: status_led
@@ -239,9 +241,9 @@ light:
     output: relay1
     restore_mode: ${light1_restore_mode}
     on_turn_on:
-      - light.turn_on: light3
+      - light.turn_on: led1
     on_turn_off:
-      - light.turn_off: light3
+      - light.turn_off: led1
 
   - platform: binary
     name: "Light2"
@@ -249,23 +251,23 @@ light:
     output: relay2
     restore_mode: ${light2_restore_mode}
     on_turn_on:
-      - light.turn_on: light4
+      - light.turn_on: led2
     on_turn_off:
-      - light.turn_off: light4
+      - light.turn_off: led2
 
   # Button LEDs
   - platform: monochromatic
     name: "LED1"
     disabled_by_default: true
-    id: light3
-    output: led1
+    id: led1
+    output: button_led1
     default_transition_length: 500ms
 
   - platform: monochromatic
     name: "LED2"
     disabled_by_default: true
-    id: light4
-    output: led2
+    id: led2
+    output: button_led2
     default_transition_length: 500ms
 
 text_sensor:
