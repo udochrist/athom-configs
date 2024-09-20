@@ -31,6 +31,7 @@ jobs:
         athom-sw02.yaml,
         athom-sw03.yaml,
         athom-sw04.yaml,
-        athom-wall-outlet.yaml
+        athom-wall-outlet.yaml,
+        athom-without-relay-plug.yaml
       # CHANGEME: Set the name of your project here:
       name: Athom ESP8285 Device
