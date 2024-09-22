@@ -146,6 +146,7 @@ binary_sensor:
       number: 5
       mode: INPUT_PULLUP
       inverted: true
+    id: power_button
     name: "Power Button"
     disabled_by_default: true
     on_multi_click:
