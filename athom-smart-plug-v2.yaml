@@ -120,13 +120,14 @@ globals:
   - id: restore_mode
     type: int
     restore_value: yes
-    initial_value: "3"
+    initial_value: "2"      # 0 = Always_Off. 1 = Restore_Power_Off. 2 = Always_On.
 
 select:
   - platform: template
     name: "Power On State"
     id: "power_mode"
     optimistic: true
+    icon: "mdi:electric-switch"
     options:
       - Always Off
       - Always On
