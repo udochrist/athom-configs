@@ -222,7 +222,7 @@ sensor:
       filters:
         - throttle_average: ${sensor_update_interval}
     reactive_power:
-      name: "Sonoff Pow R2 Reactive Power"
+      name: "Reactive Power"
       filters:
         - throttle_average: ${sensor_update_interval}
     power_factor:
