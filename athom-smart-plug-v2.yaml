@@ -5,7 +5,7 @@ substitutions:
   room: ""
   device_description: "athom smart plug v2"
   project_name: "Athom Technology.Smart Plug V2"
-  project_version: "v2.0.5"
+  project_version: "v2.0.6"
   sensor_update_interval: "10s"
   relay_restore_mode: RESTORE_DEFAULT_ON
   # Current Limit in Amps. AU Plug = 10. IL, BR, EU, UK, US Plug = 16.
@@ -111,6 +111,7 @@ dashboard_import:
 uart:
   rx_pin: RX
   baud_rate: 4800
+  parity: EVEN
 
 globals:
   - id: total_energy
@@ -230,7 +231,10 @@ sensor:
       name: "Apparent Power"
       filters:
         - throttle_average: ${sensor_update_interval}
-        
+    reactive_power:
+      name: "Reactive Power"
+      filters:
+        - throttle_average: ${sensor_update_interval}
     power_factor:
       name: "Power Factor"
       filters:
