@@ -180,6 +180,7 @@ sensor:
     device_class: ""
 
   - platform: hlw8012
+    id: athom_hlw8012
     sel_pin:
       number: GPIO12
       inverted: True
