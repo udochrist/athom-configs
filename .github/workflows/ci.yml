@@ -20,28 +20,28 @@ jobs:
       matrix:
         #### Modify below here to match your project ####
         file:
-          - athom-cb02.yaml
-          - athom-garage-door.yaml
-          - athom-mini-switch.yaml
-          - athom-presence-sensor.yaml
-          - athom-relay-board-x1.yaml
-          - athom-relay-board-x2.yaml
-          - athom-relay-board-x4.yaml
-          - athom-relay-board-x8.yaml
-          - athom-rgb-light.yaml
-          - athom-rgbct-light.yaml
-          - athom-rgbw-light.yaml
-          - athom-rgbww-light.yaml
-          - athom-smart-plug-v2.yaml
-          - athom-smart-plug.yaml
-          - athom-sw01-v2.yaml
-          - athom-sw01.yaml
-          - athom-sw02-v2.yaml
-          - athom-sw02.yaml
-          - athom-sw03.yaml
-          - athom-sw04.yaml
-          - athom-wall-outlet.yaml
-          - athom-without-relay-plug.yaml
+          - athom-cb02
+          - athom-garage-door
+          - athom-mini-switch
+          - athom-presence-sensor
+          - athom-relay-board-x1
+          - athom-relay-board-x2
+          - athom-relay-board-x4
+          - athom-relay-board-x8
+          - athom-rgb-light
+          - athom-rgbct-light
+          - athom-rgbw-light
+          - athom-rgbww-light
+          - athom-smart-plug-v2
+          - athom-smart-plug
+          - athom-sw01-v2
+          - athom-sw01
+          - athom-sw02-v2
+          - athom-sw02
+          - athom-sw03
+          - athom-sw04
+          - athom-wall-outlet
+          - athom-without-relay-plug
         #### Modify above here to match your project ####
 
         esphome-version:
