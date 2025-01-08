@@ -37,6 +37,7 @@ jobs:
         athom-wall-outlet.yaml
         athom-without-relay-plug.yaml
       esphome-version: 2024.10.3
+      combined-name: athom
       #### Modify above here to match your project ####
 
       release-summary: ${{ github.event.release.body }}
