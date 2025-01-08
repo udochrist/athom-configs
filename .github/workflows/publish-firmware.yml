@@ -1,0 +1,53 @@
+name: Publish Firmware
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build-firmware:
+    name: Build Firmware
+    uses: esphome/workflows/.github/workflows/build.yml@2024.12.0
+    with:
+      #### Modify below here to match your project ####
+      files: |
+        athom-cb02.yaml,
+        athom-garage-door.yaml,
+        athom-mini-switch.yaml,
+        athom-presence-sensor.yaml,
+        athom-relay-board-x1.yaml,
+        athom-relay-board-x2.yaml,
+        athom-relay-board-x4.yaml,
+        athom-relay-board-x8.yaml,
+        athom-rgb-light.yaml,
+        athom-rgbct-light.yaml,
+        athom-rgbw-light.yaml,
+        athom-rgbww-light.yaml,
+        athom-smart-plug-v2.yaml,
+        athom-smart-plug.yaml,
+        athom-sw01-v2.yaml,
+        athom-sw01.yaml,
+        athom-sw02-v2.yaml,
+        athom-sw02.yaml,
+        athom-sw03.yaml,
+        athom-sw04.yaml,
+        athom-wall-outlet.yaml,
+        athom-without-relay-plug.yaml
+      esphome-version: 2024.10.3
+      combined-name: project-template
+      #### Modify above here to match your project ####
+
+      release-summary: ${{ github.event.release.body }}
+      release-url: ${{ github.event.release.html_url }}
+      release-version: ${{ github.event.release.tag_name }}
+
+  upload-to-release:
+    name: Upload to Release
+    uses: esphome/workflows/.github/workflows/upload-to-gh-release.yml@2024.12.0
+    needs:
+      - build-firmware
+    with:
+      version: ${{ github.event.release.tag_name }}
