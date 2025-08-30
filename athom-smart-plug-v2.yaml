@@ -196,14 +196,16 @@ sensor:
     entity_category: diagnostic
     device_class: ""
 
+  # CSE7766 power monitoring chip
   - platform: cse7766
     id: athom_cse7766
     current:
       name: "Current"
+      id: plug_current  # Added ID so we can reference this in other sensors
       icon: mdi:current-ac
       filters:
         - throttle_average: ${sensor_update_interval}
-        - lambda: if (x < 0.060) return 0.0; else return x;   #For the chip will report less than 3w power when no load is connected
+        - lambda: if (x < 0.060) return 0.0; else return x;   # For the chip will report less than 3w power when no load is connected
       on_value_range:
         - above: ${current_limit}
           then:
@@ -211,6 +213,7 @@ sensor:
 
     voltage:
       name: "Voltage"
+      id: plug_voltage  # Added ID so we can reference this in other sensors
       icon: mdi:sine-wave
       filters:
         - throttle_average: ${sensor_update_interval}
@@ -221,7 +224,7 @@ sensor:
       icon: mdi:power
       filters:
         - throttle_average: ${sensor_update_interval}
-        - lambda: if (x < 3.0) return 0.0; else return x;    #For the chip will report less than 3w power when no load is connected
+        - lambda: if (x < 3.0) return 0.0; else return x;    # For the chip will report less than 3w power when no load is connected
 
     energy:
       name: "Energy"
@@ -241,7 +244,6 @@ sensor:
               id(total_energy) += current_energy_value - previous_energy_value;
               previous_energy_value = current_energy_value;
               id(total_energy_sensor).update();
-
 
     apparent_power:
       name: "Apparent Power"
