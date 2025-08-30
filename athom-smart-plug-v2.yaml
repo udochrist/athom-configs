@@ -4,8 +4,8 @@ substitutions:
   # Allows ESP device to be automatically lined to an 'Area' in Home Assistant. Typically used for areas such as 'Lounge Room', 'Kitchen' etc
   room: ""
   device_description: "athom smart plug v2"
-  project_name: "Athom Technology.Smart Plug V2"
-  project_version: "v2.0.7"
+  project_name: "China Athom Technology.Athom Plug V2"
+  project_version: "v2.0.8"
   sensor_update_interval: "10s"
   relay_restore_mode: RESTORE_DEFAULT_ON
   # Current Limit in Amps. AU Plug = 10. IL, BR, EU, UK, US Plug = 16.

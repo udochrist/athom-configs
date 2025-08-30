@@ -1,7 +1,7 @@
 substitutions:
   device_name: "athom-ws2812b"
-  project_name: "Athom Technology.WS2812B Controller"
-  project_version: "1.1.1"
+  project_name: "China Athom Technology.WS2812B Controller"
+  project_version: "1.1.2"
   button_toggle: "true"
   led_restore_mode: RESTORE_DEFAULT_OFF
   number_of_leds: '150'

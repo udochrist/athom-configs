@@ -8,9 +8,9 @@ substitutions:
   # Description as appears in ESPHome & top of webserver page
   device_description: "athom esp8266 4ch relay board"
   # Project Name
-  project_name: "Athom Technology.Athom 4CH Relay Board"
+  project_name: "China Athom Technology.Athom 4CH Relay Board"
   # Projection version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "v1.0.3"
+  project_version: "v1.0.4"
    # Restore the relay (GPO switch) upon reboot to state:
   relay1_restore_mode: RESTORE_DEFAULT_OFF
   relay2_restore_mode: RESTORE_DEFAULT_OFF
