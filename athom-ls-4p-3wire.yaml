@@ -13,6 +13,10 @@ esphome:
   friendly_name: ""
   name_add_mac_suffix: true
   min_version: 2024.6.0
+  platformio_options:
+    board_upload.flash_size: 2MB
+    board_upload.maximum_size: 2097152
+    board_build.ldscript: eagle.flash.2m.ld
   project:
     name: "${project_name}"
     version: "${project_version}"
