@@ -174,11 +174,6 @@ binary_sensor:
           - button.press: Reset
 
 sensor:
-  - platform: uptime
-    name: "Uptime Sensor"
-    id: uptime_sensor
-    entity_category: diagnostic
-    internal: true
 
   # Reports the WiFi signal strength/RSSI in dB
   - platform: wifi_signal
@@ -375,11 +370,12 @@ text_sensor:
 #    device_class: timestamp
 
   - platform: uptime
-    name: "Uptime"
+    name: "Uptime Sensor"
     entity_category: diagnostic
-    separator: " "
     update_interval: 15s
     icon: mdi:clock-start
+    format:
+      separator: " "
 
 time:
   - platform: sntp
