@@ -92,9 +92,6 @@ logger:
   level: ${log_level}
   baud_rate: 115200
 
-mdns:
-  disabled: false
-
 web_server:
   port: 80
 
@@ -108,6 +105,9 @@ wifi:
   fast_connect: "${wifi_fast_connect}"
   # Define dns domain / suffix to add to hostname
   domain: "${dns_domain}"
+
+mdns:
+  disabled: false
 
 captive_portal:
 
