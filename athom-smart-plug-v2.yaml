@@ -112,7 +112,7 @@ mdns:
 
 
 dashboard_import:
-  package_import_url: github://athom-tech/athom-configs/athom-smart-plug-v2.yaml
+  package_import_url: github://udochrist/athom-configs/athom-smart-plug-v2.yaml
 
 # Dentra Components - Adds 'Platform - Energy Statistics'
 # https://github.com/dentra/esphome-components/tree/master/components/energy_statistics
@@ -377,6 +377,10 @@ text_sensor:
     icon: mdi:clock-start
     format:
       separator: " "
+
+  - platform: version
+    name: "ESPHome Version"
+    hide_timestamp: true   
 
 time:
   - platform: sntp
