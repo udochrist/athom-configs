@@ -110,10 +110,6 @@ mdns:
 
 captive_portal:
 
-mdns:
-  disabled: false
-
-
 dashboard_import:
   package_import_url: github://udochrist/athom-configs/athom-smart-plug-v2.yaml
 
