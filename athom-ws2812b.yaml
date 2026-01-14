@@ -38,14 +38,14 @@ ota:
 logger:
   baud_rate: 0
 
-mdns:
-  disabled: false
-
 web_server:
   port: 80
 
 wifi:
   ap: {} # This spawns an AP with the device name and mac address with no password.
+
+mdns:
+  disabled: false
 
 captive_portal:
 
