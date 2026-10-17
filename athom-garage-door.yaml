@@ -10,7 +10,7 @@ substitutions:
   # Project Name
   project_name: "China Athom Technology.Athom Garage Door Opener"
   # Projection version denotes the release version of the yaml file, allowing checking of deployed vs latest version
-  project_version: "v1.2.4"
+  project_version: "v1.2.7"
   # Status inverted
   status_inverted: "true"
   # Define a domain for this device to use. i.e. iot.home.lan (so device will appear as athom-smart-plug-v2.iot.home.lan in DNS/DHCP logs)
@@ -36,7 +36,7 @@ esphome:
   comment: "${device_description}"
   area: "${room}"
   name_add_mac_suffix: true
-  min_version: 2024.6.0
+  min_version: 2026.6.0
   platformio_options:
     board_upload.flash_size: 2MB
     board_upload.maximum_size: 2097152
@@ -186,7 +186,14 @@ cover:
           then:
             - switch.turn_on: relay
 
+debug:
+  update_interval: 5s
+
 text_sensor:
+  - platform: debug
+    reset_reason:
+      name: "Reset Reason"
+
   - platform: wifi_info
     ip_address:
       name: "IP Address"
